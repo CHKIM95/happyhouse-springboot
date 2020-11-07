@@ -7,6 +7,9 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<jsp:include page="common/header.jsp" />
+		<link rel="stylesheet" href="${root}/resources/css/index.css" type="text/css">
+		
 		<script>
 			
 			$(function(){
@@ -18,8 +21,8 @@
 					success:function(sidos){
 						$.each(sidos, function(index, sido){
 							$("#sido").append(
-									"<option value='"+vo.sido_code+"'>"
-											+ vo.sido_name + "</option>");
+									"<option value='"+sido.sidoCode+"'>"
+											+ sido.sidoName + "</option>");
 						}); //each
 					},
 					error:function(xhr, status, msg){
@@ -44,8 +47,8 @@
 								'<option value="0">선택</option>');
 								$.each(guguns, function(index, gugun){
 									$("#gugun").append(
-											"<option value='"+vo.gugun_code+"'>"
-													+ vo.gugun_name
+											"<option value='"+gugun.gugunCode+"'>"
+													+ gugun.gugunName
 													+ "</option>");
 								}); //each
 							},
@@ -69,8 +72,8 @@
 									'<option value="0">선택</option>');
 									$.each(dongs, function(index, dong){
 										$("#dong").append(
-												"<option value='"+vo.gugun_code+"'>"
-														+ vo.gugun_name
+												"<option value='"+dong.dongName+"'>"
+														+ dong.dongName
 														+ "</option>");
 									}); //each
 								},
@@ -81,32 +84,54 @@
 						});	//gugun
 				
 			}); //ready
+			
+/* 			$(function(){
+				
+				$.ajax({
+					url:"${root}/house/synchronousSearch",
+					type: "GET",
+					dataType: "xml",
+					success : function(xml){
+						$(xml).find("item").each(function(){
+							let dong = $(this).find("법정동").text();
+							$("#result").append(dong);
+						});//each
+					}//success
+				});
+				
+			}); */
 				
 		</script>
 	</head>
 	
 	<body>
 	
-	<!-- select 검색 시작 -->
-	<div class="div-select">
-		<select id="house-type" name="house-type" class="background-gray">
-			<option value="">선택</option>
-			<option value="전체">전체</option>
-			<option value="아파트">아파트</option>
-			<option value="주택">주택</option>
-		</select> 
-		<select id="sido" name="sido" class="background-gray">
-			<option value="">선택</option>
-		</select> 
-		<select id="gugun" name="gugun" class="background-gray">
-			<option value="">선택</option>
-		</select> 
-		<select id="dong" name="dong" class="background-gray">
-			<option value="">선택</option>
-		</select>
-		<input id="searchButton" type="submit" value="검색" class="background-gray">
-	</div>
-	<!-- select 검색 끝 -->
+		<!-- select 검색 시작 -->
+		<div class="div-select">
+			<select id="houseType" name="houseType" class="background-gray">
+				<option value="">선택</option>
+				<option value="all">전체</option>
+				<option value="apartment">아파트</option>
+				<option value="multiGeneration">주택</option>
+			</select> 
+			<select id="sido" name="sido" class="background-gray">
+				<option value="">선택</option>
+			</select> 
+			<select id="gugun" name="gugun" class="background-gray">
+				<option value="">선택</option>
+			</select> 
+			<select id="dong" name="dong" class="background-gray">
+				<option value="">선택</option>
+			</select>
+			<input type="submit" id="searchButton" value="검색" class="background-gray">
+		</div>
+		<!-- select 검색 끝 -->
+		<div id = "result">
+			${xml}
+		</div>
 	
+		<!-- footer호출 -->
+		<jsp:include page="common/footer.jsp" />
+		
 	</body>
 </html>

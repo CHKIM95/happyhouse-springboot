@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="getDongInGugun" parameterType="String" resultType="SidoGugunDongDto">
-		SELECT right(dongcode,5) dongCode, dong
+		SELECT right(dongcode,5) dongCode, dong dongName
 		FROM dongcode
 		where left(dongcode,5) = #{gugun}
 		ORDER BY dongcode

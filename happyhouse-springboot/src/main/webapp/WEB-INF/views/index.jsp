@@ -14,7 +14,7 @@
 		<!-- header호출 -->
 		<jsp:include page="common/header.jsp" />
 		<!-- css호출 -->
-		<link rel="stylesheet" href="css/index.css" type="text/css">
+		<link rel="stylesheet" href="${root}/resources/css/index.css" type="text/css">
 
 		<script>
 			
@@ -78,8 +78,8 @@
 									'<option value="0">선택</option>');
 									$.each(dongs, function(index, dong){
 										$("#dong").append(
-												"<option value='"+dong.dong+"'>"
-														+ dong.dong
+												"<option value='"+dong.dongName+"'>"
+														+ dong.dongName
 														+ "</option>");
 									}); //each
 								},
@@ -107,7 +107,7 @@
 			</ul>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="images/home1.jpg" alt="Los Angeles" width="1100"
+					<img src="${root}/resources/images/home1.jpg" alt="Los Angeles" width="1100"
 						height="500">
 					<div class="carousel-caption">
 						<h3>Los Angeles</h3>
@@ -115,14 +115,14 @@
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="images/home2.jpg" alt="Chicago" width="1100" height="500">
+					<img src="${root}/resources/images/home2.jpg" alt="Chicago" width="1100" height="500">
 					<div class="carousel-caption">
 						<h3>Chicago</h3>
 						<p>Thank you, Chicago!</p>
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="images/home3.jpg" alt="New York" width="1100" height="500">
+					<img src="${root}/resources/images/home3.jpg" alt="New York" width="1100" height="500">
 					<div class="carousel-caption">
 						<h3>New York</h3>
 						<p>We love the Big Apple!</p>
@@ -139,20 +139,29 @@
 	
 		<!-- select 검색 시작 -->
 		<div class="div-select">
-			<form id="dong-form" action="${root}/map" method="post">
-				<input type="hidden" name='act' value='apt' /> <select
-					id="house-type" name="house-type" class="background-gray">
+			<form id="dong-form" action="${root}/house/synchronousSearch" method="get">
+				<select id="houseType" name="houseType" class="background-gray">
 					<option value="">선택</option>
-					<option value="전체">전체</option>
-					<option value="아파트">아파트</option>
-					<option value="주택">주택</option>
-				</select> <select id="sido" name="sido" class="background-gray">
+					<option value="all">전체</option>
+					<option value="apartment">아파트</option>
+					<option value="multiGeneration">주택</option>
+				</select>
+				<select id="dealType" name="dealType" class="background-gray">
 					<option value="">선택</option>
-				</select> <select id="gugun" name="gugun" class="background-gray">
+					<option value="all">전체</option>
+					<option value="buy">매매</option>
+					<option value="rent">전월세</option>
+				</select> 
+				<select id="sido" name="sido" class="background-gray">
 					<option value="">선택</option>
-				</select> <select id="dong" name="dong" class="background-gray">
+				</select> 
+				<select id="gugun" name="gugun" class="background-gray">
 					<option value="">선택</option>
-				</select> <input type="submit" value="검색" class="background-gray">
+				</select> 
+				<select id="dong" name="dong" class="background-gray">
+					<option value="">선택</option>
+				</select> 
+				<input type="submit" id = "searchButton" value="검색" class="background-gray">
 			</form>
 		</div>
 		<!-- select 검색 끝 -->
