@@ -1,11 +1,17 @@
 package com.ssafy.happyhouse.model;
 
-public class SidoGugunDto {
+public class SidoGugunDongDto {
 
 	private String sidoCode;
 	private String sidoName;
 	private String gugunCode;
 	private String gugunName;
+	private String dongCode;
+	private String dongName;
+	
+	public SidoGugunDongDto() {
+
+	}
 
 	public String getSidoCode() {
 		return sidoCode;
@@ -37,6 +43,28 @@ public class SidoGugunDto {
 
 	public void setGugunName(String gugunName) {
 		this.gugunName = gugunName;
+	}
+
+	public String getDongCode() {
+		return dongCode;
+	}
+
+	public void setDongCode(String dongCode) {
+		this.dongCode = dongCode;
+	}
+
+	public String getDongName() {
+		return dongName;
+	}
+
+	public void setDongName(String dongName) {
+		this.dongName = dongName;
+	}
+
+	@Override
+	public String toString() {
+		return "SidoGugunDto [sidoCode=" + sidoCode + ", sidoName=" + sidoName + ", gugunCode=" + gugunCode
+				+ ", gugunName=" + gugunName + ", dongCode=" + dongCode + ", dongName=" + dongName + "]";
 	}
 
 	
