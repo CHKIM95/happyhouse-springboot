@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +16,38 @@
 
 </head>
 <body>
+
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<a class="navbar-brand" href="${root}/">HappyHouse</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" href="#">공지사항</a></li>
+			</ul>
+		</div>
+		<div class="collapse navbar-collapse justify-content-end"
+			id="collapsibleNavbar">
+			<ul class="navbar-nav">
+
+				<c:if test="${not empty user}">
+					<li class="nav-item"><a class="nav-link"
+						href="${root}/user/logout">Logout</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${root}/user/userInfo">회원정보</a></li>
+				</c:if>
+				<c:if test="${empty user}">
+					<li class="nav-item"><a class="nav-link"
+						href="${root}/user/loginForm">Login</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${root}/user/joinForm">회원가입</a></li>
+				</c:if>
+
+			</ul>
+		</div>
+	</nav>
 
 </body>
 </html>
