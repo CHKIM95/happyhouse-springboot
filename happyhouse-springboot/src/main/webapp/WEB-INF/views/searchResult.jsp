@@ -72,7 +72,7 @@
 									'<option value="0">선택</option>');
 									$.each(dongs, function(index, dong){
 										$("#dong").append(
-												"<option value='"+dong.dongName+"'>"
+												"<option value='"+dong.dongCode+"'>"
 														+ dong.dongName
 														+ "</option>");
 									}); //each
@@ -84,6 +84,42 @@
 						});	//gugun
 				
 			}); //ready
+			
+			$(function(){
+				let searchWords = ["${houseType}", "${dealType}", "${gugun}", "${dong}"];
+				showDatas(searchWords)
+			})
+			
+			$(function(){
+				$("#searchButton").click(function(){
+					let searchWords = [$("#houseType").val(), $("#dealType").val(), $("#gugun").val(), $("#dong").val()];
+					showDatas(searchWords);
+				});//click
+			});
+			
+			function showDatas(searchWords){
+				alert(searchWords);
+				$("#result").empty();
+				$.ajax({
+					url:"${root}/house/asynchronousSearch",
+					type: "GET",
+					contentType:"application/json; charset=utf-8",
+					data: {"houseType" : searchWords[0],
+						"dealType" : searchWords[1],
+						"gugun" : searchWords[2],
+						"dong" : searchWords[3]},
+					dataType: "xml",
+					success : function(xml){
+						$(xml).find("item").each(function(){
+							let dong = $(this).find("법정동").text();
+							$("#result").append(dong);
+						});//each
+					},
+					error:function(xhr, status, msg){
+						console.log("상태값:"+status+" http에러메시지:" + msg);
+					}
+				});//ajax
+			}
 			
 /* 			$(function(){
 				
@@ -114,6 +150,12 @@
 				<option value="apartment">아파트</option>
 				<option value="multiGeneration">주택</option>
 			</select> 
+			<select id="dealType" name="dealType" class="background-gray">
+				<option value="">선택</option>
+				<option value="all">전체</option>
+				<option value="buy">매매</option>
+				<option value="rent">전월세</option>
+			</select> 
 			<select id="sido" name="sido" class="background-gray">
 				<option value="">선택</option>
 			</select> 
@@ -127,7 +169,7 @@
 		</div>
 		<!-- select 검색 끝 -->
 		<div id = "result">
-			${xml}
+
 		</div>
 	
 		<!-- footer호출 -->

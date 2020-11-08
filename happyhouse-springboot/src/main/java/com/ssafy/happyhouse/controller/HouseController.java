@@ -3,6 +3,7 @@ package com.ssafy.happyhouse.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -36,18 +38,34 @@ public class HouseController {
 	
 	@RequestMapping(value = "/gugun", method = RequestMethod.GET)
 	@ResponseBody
-	public List<SidoGugunDongDto> getGugunInSido(@RequestBody @RequestParam String sido) throws Exception {
+	public List<SidoGugunDongDto> getGugunInSido(@RequestParam String sido) throws Exception {
 		return houseService.getGugunInSido(sido);
 	}
 	
 	@RequestMapping(value = "/dong", method = RequestMethod.GET)
 	@ResponseBody
-	public List<SidoGugunDongDto> getDongInGugun(@RequestBody @RequestParam String gugun) throws Exception {
+	public List<SidoGugunDongDto> getDongInGugun(@RequestParam String gugun) throws Exception {
 		return houseService.getDongInGugun(gugun);
 	}
 	
 	@RequestMapping(value = "/synchronousSearch", method = RequestMethod.GET)
-	public String searchResult(@RequestParam String houseType, String dealType, String sido, String gugun, String dong, Model model) throws Exception{
+	public String synchronousSearch(@RequestParam Map<String, String> searchWords, Model model) {
+		
+		model.addAttribute("houseType", searchWords.get("houseType"));
+		model.addAttribute("dealType", searchWords.get("dealType"));
+		model.addAttribute("gugun", searchWords.get("gugun"));
+		model.addAttribute("dong", searchWords.get("dong"));
+		return "searchResult";
+	}
+	
+	@RequestMapping(value = "/asynchronousSearch", method = RequestMethod.GET, headers = { "Content-type=application/json" })
+	@ResponseBody
+	public String asynchronousSearch(@RequestParam Map<String, String> searchWords) throws Exception{
+		
+		String houseType = searchWords.get("houseType");
+		String dealType = searchWords.get("dealType");
+		String gugun = searchWords.get("gugun");
+		String dong = searchWords.get("dong");
 		
 		StringBuilder urlBuilder = new StringBuilder();
 		if(houseType.equals("apartment") && dealType.equals("buy")) {
@@ -86,10 +104,8 @@ public class HouseController {
 		}
 		rd.close();
 		conn.disconnect();
-		System.out.println(sb.toString());
 		
-		model.addAttribute("dong", dong);
-		model.addAttribute("xml", sb.toString());
-		return "searchResult";
+		return sb.toString();
+	
 	}
 }

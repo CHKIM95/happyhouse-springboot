@@ -78,7 +78,7 @@
 									'<option value="0">선택</option>');
 									$.each(dongs, function(index, dong){
 										$("#dong").append(
-												"<option value='"+dong.dongName+"'>"
+												"<option value='"+dong.dongCode+"'>"
 														+ dong.dongName
 														+ "</option>");
 									}); //each
