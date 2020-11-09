@@ -102,7 +102,6 @@ public class HouseController {
 		}
 		rd.close();
 		conn.disconnect();
-		System.out.println(sb.toString());
 		return sb.toString();
 	
 	}
