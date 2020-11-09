@@ -58,31 +58,6 @@
 						});
 					});	//sido
 				
-				$("#gugun").change(
-						function(){
-							$.ajax({
-								url:"${root}/house/dong",
-								type:"GET",
-								contentType:"application/json; charset=utf-8",
-								data:{"gugun" : $("#gugun").val()},
-								dataType:"json",
-								success:function(dongs){
-									$("#dong").empty();
-									$("#dong").append(
-									'<option value="0">선택</option>');
-									$.each(dongs, function(index, dong){
-										$("#dong").append(
-												"<option value='"+dong.dongCode+"'>"
-														+ dong.dongName
-														+ "</option>");
-									}); //each
-								},
-								error:function(xhr, status, msg){
-									console.log("상태값:"+status+" http에러메시지:" + msg);
-								}
-							});
-						});	//gugun
-				
 			}); //ready
 			
 			$(function(){
@@ -97,8 +72,9 @@
 				});//click
 			});
 			
+			let houseInfoArr = new Array();
+			
 			function showDatas(searchWords){
-				alert(searchWords);
 				$("#result").empty();
 				$.ajax({
 					url:"${root}/house/asynchronousSearch",
@@ -110,9 +86,30 @@
 						"dong" : searchWords[3]},
 					dataType: "xml",
 					success : function(xml){
+						houseInfoArr = new Array();
+						let i = 0;
 						$(xml).find("item").each(function(){
-							let dong = $(this).find("법정동").text();
-							$("#result").append(dong);
+							let builtYear = $(this).find("건축년도").text();
+							let dong =  $(this).find("법정동").text();
+							let price;
+							if(searchWords[1]=="rent")
+								price = $(this).find("보증금액").text();	
+							else if(searchWords[1]=="buy")
+								price = $(this).find("거래금액").text();
+							
+							let houseName;
+							if(searchWords[0]=="apartment")
+								houseName = $(this).find("아파트").text();
+							else if(searchWords[0]=="multiGeneration")
+								houseName = $(this).find("연립다세대").text();
+							
+							let area = $(this).find("전용면적").text();
+							let floor = $(this).find("층").text();
+							let gugunCode = $(this).find("지역코드").text();
+
+							let houseInfo = [builtYear, dong, price, houseName, area, floor, gugunCode];
+							$("#result").append(houseInfo + "<br/>");
+							houseInfoArr[i++] = houseInfo;
 						});//each
 					},
 					error:function(xhr, status, msg){
@@ -120,22 +117,6 @@
 					}
 				});//ajax
 			}
-			
-/* 			$(function(){
-				
-				$.ajax({
-					url:"${root}/house/synchronousSearch",
-					type: "GET",
-					dataType: "xml",
-					success : function(xml){
-						$(xml).find("item").each(function(){
-							let dong = $(this).find("법정동").text();
-							$("#result").append(dong);
-						});//each
-					}//success
-				});
-				
-			}); */
 				
 		</script>
 	</head>
@@ -146,13 +127,11 @@
 		<div class="div-select">
 			<select id="houseType" name="houseType" class="background-gray">
 				<option value="">선택</option>
-				<option value="all">전체</option>
 				<option value="apartment">아파트</option>
 				<option value="multiGeneration">주택</option>
 			</select> 
-			<select id="dealType" name="dealType" class="background-gray">
+			<select id="dealType" name="dealType" default class="background-gray">
 				<option value="">선택</option>
-				<option value="all">전체</option>
 				<option value="buy">매매</option>
 				<option value="rent">전월세</option>
 			</select> 
@@ -162,9 +141,6 @@
 			<select id="gugun" name="gugun" class="background-gray">
 				<option value="">선택</option>
 			</select> 
-			<select id="dong" name="dong" class="background-gray">
-				<option value="">선택</option>
-			</select>
 			<input type="submit" id="searchButton" value="검색" class="background-gray">
 		</div>
 		<!-- select 검색 끝 -->
