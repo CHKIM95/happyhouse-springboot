@@ -2,6 +2,7 @@ package com.ssafy.happyhouse.model.mapper;
 
 import java.util.List;
 
+import com.ssafy.happyhouse.model.MemberDto;
 import com.ssafy.happyhouse.model.SidoGugunDongDto;
 
 public interface MemberMapper {
@@ -11,5 +12,5 @@ public interface MemberMapper {
 	void memberdetail() throws Exception;
 	void join() throws Exception;
 	void logout() throws Exception;
-	void login() throws Exception;
+	MemberDto login(String userid, String userpwd) throws Exception;
 }

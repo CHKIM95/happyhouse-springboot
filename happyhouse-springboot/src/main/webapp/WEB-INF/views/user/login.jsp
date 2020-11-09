@@ -3,27 +3,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
 	<c:if test="${cookie.ssafy_id.value ne null}">
-	<c:set var="saveid" value="${cookie.ssafy_id.value}"/>
-	<c:set var="idck" value=" checked=\"checked\""/>
-</c:if>
+		<c:set var="saveid" value="${cookie.ssafy_id.value}"/>
+		<c:set var="idck" value=" checked=\"checked\""/>
+	</c:if>
 <head>
 	<title>HappyHouse</title>
 	<meta charset="utf-8">
 	<!-- header호출 -->
 	<jsp:include page="../common/header.jsp" />
 	<!-- js호출 -->
-<script type="text/javascript" src ="../js/login.js"></script>
+<script type="text/javascript" src ="${root}/resources/js/login.js"></script>
 	<!-- css호출 -->
-	<link rel="stylesheet" href="../css/login.css" type="text/css">
+	<link rel="stylesheet" href="${root}/resources/css/login.css" type="text/css">
 	
 </head>
 <body>
 <!-- nav 호출 -->
-<jsp:include page="../common/nav.jsp" />
+<%-- <jsp:include page="../common/nav.jsp" /> --%>
 <div class="container" align="center">
 	<div class="inner-head">
 	<br>
-		<img src="../img/logo.png">
+		<img src="${root}/resources/images/logo.png">
 	</div>
 	<div class="col-lg-6" align="center">
 		<form id="loginform" method="post" action="">
@@ -38,7 +38,12 @@
 			</div>
 			<div class="form-group form-check" align="right">
 			    <label class="form-check-label">
-			      <input class="form-check-input" type="checkbox" id="idsave" name="idsave" value="saveok"${idck}> 아이디저장
+			    <c:if test="${saveid == null}">
+			      <input class="form-check-input" type="checkbox" id="idsave" name="idsave" value="saveok"> 아이디저장 
+			    </c:if>
+			    <c:if test="${saveid != null}">
+			      <input class="form-check-input" type="checkbox" id="idsave" name="idsave" value="saveok" checked="checked"> 아이디저장 
+			    </c:if>
 			    </label>
 			</div>
 			<div class="form-group" align="center">

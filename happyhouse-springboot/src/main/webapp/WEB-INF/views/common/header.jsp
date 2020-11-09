@@ -34,15 +34,17 @@
 
 				<c:if test="${not empty user}">
 					<li class="nav-item"><a class="nav-link"
-						href="${root}/user/logout">Logout</a></li>
+						><b>${user.username}</b>님 환영합니다!!</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="${root}/user/userInfo">회원정보</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${root}/user/logout">Logout</a></li>
 				</c:if>
 				<c:if test="${empty user}">
 					<li class="nav-item"><a class="nav-link"
-						href="${root}/user/loginForm">Login</a></li>
-					<li class="nav-item"><a class="nav-link"
 						href="${root}/user/joinForm">회원가입</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${root}/user/loginForm">Login</a></li>
 				</c:if>
 
 			</ul>
