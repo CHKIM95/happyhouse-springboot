@@ -170,17 +170,17 @@
 							     var content = '<div class="wrap">' + 
 							                 '    <div class="info">' + 
 							                 '        <div class="title">' + 
-							                 '            카카오 스페이스닷원' + 
+							                			+ houseInfo[3] +
 							                 '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 							                 '        </div>' + 
 							                 '        <div class="body">' + 
 							                 '            <div class="img">' +
-							                 '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+							                 '                <img src="#" width="73" height="70">' +
 							                 '           </div>' + 
-							                 '            <div class="desc">' + 
-							                 '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
-							                 '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
-							                 '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+							                 '            <div class="desc">' + houseInfo[1] + " " + houseInfo[4] + 
+							                 '                <div class="ellipsis">'+ "가격 : " + houseInfo[2] + 
+							                 '                <div class="jibun ellipsis">'+ "평수 : " + houseInfo[5] + " 층 : " + houseInfo[6] + 
+							                 '                <div>' + "구군 코드 " + houseInfo[7] + '</div>' + 
 							                 '            </div>' + 
 							                 '        </div>' + 
 							                 '    </div>' +    
