@@ -12,7 +12,7 @@
 	<!-- header호출 -->
 	<jsp:include page="../common/header.jsp" />
 	<!-- js호출 -->
-	<script type="text/javascript" src ="../js/join.js"></script>
+	<script type="text/javascript" src ="${root}/resources/js/join.js"></script>
 </head>
 <body>
 <!-- nav 호출 -->

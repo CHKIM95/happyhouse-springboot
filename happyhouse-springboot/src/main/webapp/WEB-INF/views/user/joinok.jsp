@@ -19,7 +19,6 @@
     <p>가입하신 정보는 아래와 같습니다.</p>      
     <p>가입 아이디: ${registerinfo.userid}</p>
     <p>가입 이메일: ${registerinfo.email}</p>
-    <p>가입 주소 : ${registerinfo.address}</p>
   </div>  
   <p><a href="${root}">메인으로 가기</a></p>
 </div>

@@ -31,10 +31,16 @@ public class MemberController {
 	@RequestMapping(value="/userInfo", method = RequestMethod.GET)
 	private String memberdetail(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
 		MemberDto member;
-		String path = "userInfo";
+		String path = "user/userInfo";
 		try {
-			member = memberService.memberdetail(request.getSession().getId());
+			if(request.getSession().getAttribute("user") == null)
+				return "redirect:/";
+			member = memberService.memberdetail(((MemberDto)request.getSession().getAttribute("user")).getUserid());
+			if(member == null)
+				return "redirect:/";
 			model.addAttribute("member", member);
+			System.out.println(member.getEmail() + "userinfo");
+			model.addAttribute("emailId", member.getEmail().substring(0, member.getEmail().indexOf("@")));
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", "유저 상세보기 처리 중 문제가 발생했습니다.");
@@ -54,8 +60,9 @@ public class MemberController {
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	private String memberupdate(HttpServletRequest request, MemberDto member) {
 		member.setEmail(request.getParameter("emailid") + "@" + request.getParameter("emaildomain"));
+		System.out.println(member.getEmail() + " update");
 		memberService.memberupdate(member);
-		return "redirect:/userInfo";
+		return "redirect:/user/userInfo";
 	}
 	
 	/**
@@ -71,9 +78,10 @@ public class MemberController {
 	public String join(HttpServletRequest request, MemberDto memberDto, Model model) {
 		String path = "index";
 		memberDto.setEmail(request.getParameter("emailid") + "@" + request.getParameter("emaildomain"));
-		System.out.println(memberDto.toString());
+		System.out.println(memberDto.getEmail());
 		try {
 			memberService.join(memberDto);
+			model.addAttribute("registerinfo", memberDto);
 			path = "user/joinok";
 		} catch (Exception e) {
 			e.printStackTrace();

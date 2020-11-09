@@ -13,7 +13,7 @@
 	<!-- js호출 -->
 	<script type="text/javascript" src ="../resources/js/join.js"></script>
 	<!-- css호출 -->
-	<link rel="stylesheet" href="../css/login.css" type="text/css">
+	<link rel="stylesheet" href="${root}/resources/css/login.css" type="text/css">
 	
 </head>
 <body>

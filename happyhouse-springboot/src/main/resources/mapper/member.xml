@@ -6,26 +6,26 @@
 
 	<select id="login" resultType="MemberDto" parameterType="MemberDto">
 		SELECT userid, username 
-		FROM happyhouse_member
+		FROM member
 		WHERE userid = #{userid} and userpwd = #{userpwd}
 	</select>
 	<insert id="join" parameterType="MemberDto">
-		INSERT INTO happyhouse_member (userid, username, userpwd, email, admin, joindate)
-		values(#{userid}, #{username}, #{userpwd}, #{email}, 0, now())
+		INSERT INTO member (userid, username, userpwd, email, joindate)
+		values(#{userid}, #{username}, #{userpwd}, #{email}, now())
 	</insert>
 	<update id="memberupdate" parameterType="MemberDto">
-		update happyhouse_member
+		update member
 		set username = #{username}, userpwd = #{userpwd}, email = #{email}
 		where userid = #{userid}
 	</update>
 	
 	<delete id="memberdelete" parameterType="String">
-		delete from happyhouse_member
+		delete from member
 		where userid = #{userid}
 	</delete>
-	<select id="memberdetail" parameterType="String">
+	<select id="memberdetail" parameterType="String" resultType="MemberDto">
 		select *
-		from happyhouse_member
+		from member
 		where userid = #{userid}
 	</select>
 </mapper>

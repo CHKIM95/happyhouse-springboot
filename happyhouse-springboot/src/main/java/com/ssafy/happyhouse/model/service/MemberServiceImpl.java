@@ -32,7 +32,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void memberupdate(MemberDto member) {
-		sqlSession.getMapper(MemberMapper.class).memberupdate(member.getUserid());
+		sqlSession.getMapper(MemberMapper.class).memberupdate(member);
 		
 	}
 

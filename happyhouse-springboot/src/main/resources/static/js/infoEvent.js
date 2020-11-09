@@ -15,14 +15,14 @@ $(document).ready(function() {
 				document.getElementById("memberform").submit();
 			}
 		});
-		$("#deleteBtn").click(funtion(){
+		$("#deleteBtn").click(function(){
 			var chk = confirm("삭제하면 돌이킬 수 없습니다. 진심이십니까?");
 			if(chk == true){
-				document.getElementById("memberform").action = "./delete;
+				document.getElementById("memberform").action = "./delete";
 				document.getElementById("memberform").submit();
 			}
 			else if(chk == false){
 				document.location.href = "./userInfo";
 			}
-		}
+		});
 	});
