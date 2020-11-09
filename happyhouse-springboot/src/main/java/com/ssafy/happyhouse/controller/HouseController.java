@@ -54,7 +54,6 @@ public class HouseController {
 		model.addAttribute("houseType", searchWords.get("houseType"));
 		model.addAttribute("dealType", searchWords.get("dealType"));
 		model.addAttribute("gugun", searchWords.get("gugun"));
-		model.addAttribute("dong", searchWords.get("dong"));
 		return "searchResult";
 	}
 	
@@ -65,7 +64,6 @@ public class HouseController {
 		String houseType = searchWords.get("houseType");
 		String dealType = searchWords.get("dealType");
 		String gugun = searchWords.get("gugun");
-		String dong = searchWords.get("dong");
 		
 		StringBuilder urlBuilder = new StringBuilder();
 		if(houseType.equals("apartment") && dealType.equals("buy")) {
@@ -104,7 +102,7 @@ public class HouseController {
 		}
 		rd.close();
 		conn.disconnect();
-		
+		System.out.println(sb.toString());
 		return sb.toString();
 	
 	}
