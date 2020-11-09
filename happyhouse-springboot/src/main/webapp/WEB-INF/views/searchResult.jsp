@@ -123,6 +123,7 @@
 			function kakaoMap(houseInfoArr){
 				$(function(){
 					
+					$("#map").empty();
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 				    mapOption = {
 				        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -169,7 +170,7 @@
 							     // 별도의 이벤트 메소드를 제공하지 않습니다 
 							     var content = '<div class="wrap">' + 
 							                 '    <div class="info">' + 
-							                 '        <div class="title">' + 
+							                 '        <div class="title">' 
 							                			+ houseInfo[3] +
 							                 '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 							                 '        </div>' + 
@@ -203,7 +204,8 @@
 							     });
 							     closeOverlay(overlay);
 							  	// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-							   	map.setCenter(coords);
+							  	if(index == houseInfoArr.length - 1)
+							   		map.setCenter(coords);
 						    } //end ok
 						});    //endSearch
 						
@@ -296,6 +298,15 @@
 		  
 		</div>
 		<!-- 모달 끝 -->
+		
+		<!-- 추가기능 -->
+		<br/>
+		<div style = "width : 100%; margin:0 auto; text-align:center; " >
+			<button type="button" class="btn btn-primary" onclick="location.href='${root}/surrounding/hospital?gugun=${gugun}'">주변 안심병원</button>
+			<button type="button" class="btn btn-primary" onclick="location.href='${root}/surrounding/clinic?gugun=${gugun}'">주변 선별진료소</button>
+		</div>
+		<br/>
+		<!-- 추가기능 끝 -->
 		
 		<div id="data-show"></div>
 		
