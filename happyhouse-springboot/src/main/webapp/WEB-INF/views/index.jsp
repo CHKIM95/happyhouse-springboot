@@ -64,31 +64,6 @@
 						});
 					});	//sido
 				
-				$("#gugun").change(
-						function(){
-							$.ajax({
-								url:"${root}/house/dong",
-								type:"GET",
-								contentType:"application/json; charset=utf-8",
-								data:{"gugun" : $("#gugun").val()},
-								dataType:"json",
-								success:function(dongs){
-									$("#dong").empty();
-									$("#dong").append(
-									'<option value="0">선택</option>');
-									$.each(dongs, function(index, dong){
-										$("#dong").append(
-												"<option value='"+dong.dongCode+"'>"
-														+ dong.dongName
-														+ "</option>");
-									}); //each
-								},
-								error:function(xhr, status, msg){
-									console.log("상태값:"+status+" http에러메시지:" + msg);
-								}
-							});
-						});	//gugun
-				
 			}); //ready
 				
 		</script>
@@ -142,13 +117,11 @@
 			<form id="dong-form" action="${root}/house/synchronousSearch" method="get">
 				<select id="houseType" name="houseType" class="background-gray">
 					<option value="">선택</option>
-					<option value="all">전체</option>
 					<option value="apartment">아파트</option>
 					<option value="multiGeneration">주택</option>
 				</select>
 				<select id="dealType" name="dealType" class="background-gray">
 					<option value="">선택</option>
-					<option value="all">전체</option>
 					<option value="buy">매매</option>
 					<option value="rent">전월세</option>
 				</select> 
@@ -156,9 +129,6 @@
 					<option value="">선택</option>
 				</select> 
 				<select id="gugun" name="gugun" class="background-gray">
-					<option value="">선택</option>
-				</select> 
-				<select id="dong" name="dong" class="background-gray">
 					<option value="">선택</option>
 				</select> 
 				<input type="submit" id = "searchButton" value="검색" class="background-gray">
