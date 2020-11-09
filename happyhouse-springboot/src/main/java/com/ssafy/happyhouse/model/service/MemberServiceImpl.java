@@ -24,13 +24,14 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void memberdetail() throws Exception {
 	}
-
-	@Override
-	public void join() throws Exception {
-	}
 	
 	@Override
 	public MemberDto login(String userid, String userpwd) throws Exception {
 		return sqlSession.getMapper(MemberMapper.class).login(userid, userpwd);
+	}
+
+	@Override
+	public void join(MemberDto memberDto) throws Exception {
+		sqlSession.getMapper(MemberMapper.class).join(memberDto);
 	}
 }

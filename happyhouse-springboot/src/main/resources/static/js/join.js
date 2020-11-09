@@ -14,7 +14,8 @@ $(document).ready(function() {
 				alert("비밀번호 확인!!!");
 				return;
 			} else {
-				$("#memberform").attr("action", "../member").submit();
+//				$("#memberform").attr("action", "../member").submit();
+				$("#memberform").submit();
 			}
 		});
 

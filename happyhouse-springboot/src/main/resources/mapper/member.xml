@@ -9,5 +9,9 @@
 		FROM happyhouse_member
 		WHERE userid = #{userid} and userpwd = #{userpwd}
 	</select>
+	<insert id="join" parameterType="MemberDto">
+		INSERT INTO happyhouse_member (userid, username, userpwd, email, admin, joindate)
+		values(#{userid}, #{username}, #{userpwd}, #{email}, 0, now())
+	</insert>
 	
 </mapper>

@@ -15,5 +15,5 @@ function login() {
 	  
 function moveJoin() {
 //	document.location.href = "../member?act=join";
-	document.location.href = "./join";
+	document.location.href = "./joinForm";
 }	

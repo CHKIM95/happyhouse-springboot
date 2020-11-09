@@ -10,6 +10,6 @@ public interface MemberService {
 	void memberdelete();
 	void memberupdate();
 	void memberdetail() throws Exception;
-	void join() throws Exception;
+	void join(MemberDto memberDto) throws Exception;
 	MemberDto login(String userid, String userpwd) throws Exception;
 }

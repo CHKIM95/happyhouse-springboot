@@ -12,7 +12,7 @@
 </head>
 <body>
 <!-- nav 호출 -->
-<jsp:include page="../common/nav.jsp" />
+<%-- <jsp:include page="../common/nav.jsp" /> --%>
 <div class="container">
   <div class="jumbotron">
     <h1>${registerinfo.username}님 회원 가입을 환영합니다.</h1>

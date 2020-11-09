@@ -22,6 +22,43 @@ import com.ssafy.happyhouse.model.service.MemberService;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
+	
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
+	private void memberdelete(MemberDto member) {
+		
+	}
+
+	@RequestMapping(value="/update", method = RequestMethod.POST)
+	private void memberupdate(MemberDto member) {
+		
+	}
+	
+	/**
+	 * 회원가입창으로 이동
+	 * @return
+	 */
+	@RequestMapping(value="/joinForm", method = RequestMethod.GET)
+	public String joinForm() {
+		return "user/join";
+	}
+	
+	@RequestMapping(value="/join", method = RequestMethod.POST)
+	public String join(HttpServletRequest request, MemberDto memberDto, Model model) {
+		String path = "index";
+		memberDto.setEmail(request.getParameter("emailid") + "@" + request.getParameter("emaildomain"));
+		System.out.println(memberDto.toString());
+		try {
+			memberService.join(memberDto);
+			path = "user/joinok";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "회원가입 처리 중 문제가 발생했습니다.");
+//			path = "error/error";
+			path = "user/joinfail";
+		}
+		
+		return path;
+	}
 	/**
 	 * 로그인창으로 이동
 	 * @return
@@ -39,6 +76,7 @@ public class MemberController {
 		}
 		return "user/login";
 	}
+	
 	 /**
 	  * 로그인
 	  * @param request
