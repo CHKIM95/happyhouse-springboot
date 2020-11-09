@@ -1,15 +1,12 @@
 package com.ssafy.happyhouse.model.service;
 
-import java.util.List;
-
 import com.ssafy.happyhouse.model.MemberDto;
-import com.ssafy.happyhouse.model.SidoGugunDongDto;
 
 public interface MemberService {
 
-	void memberdelete();
-	void memberupdate();
-	void memberdetail() throws Exception;
+	void memberdelete(MemberDto member);
+	void memberupdate(MemberDto member);
+	MemberDto memberdetail(String string) throws Exception;
 	void join(MemberDto memberDto) throws Exception;
 	MemberDto login(String userid, String userpwd) throws Exception;
 }

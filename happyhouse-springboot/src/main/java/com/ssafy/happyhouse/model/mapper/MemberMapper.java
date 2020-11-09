@@ -7,9 +7,9 @@ import com.ssafy.happyhouse.model.SidoGugunDongDto;
 
 public interface MemberMapper {
 
-	void memberdelete();
-	void memberupdate();
-	void memberdetail() throws Exception;
+	void memberdelete(MemberDto member);
+	void memberupdate(String string);
+	MemberDto memberdetail(String userid) throws Exception;
 	void join(MemberDto memberDto) throws Exception;
 	void logout() throws Exception;
 	MemberDto login(String userid, String userpwd) throws Exception;

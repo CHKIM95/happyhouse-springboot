@@ -13,17 +13,6 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private SqlSession sqlSession;
 
-	@Override
-	public void memberdelete() {
-	}
-
-	@Override
-	public void memberupdate() {
-	}
-
-	@Override
-	public void memberdetail() throws Exception {
-	}
 	
 	@Override
 	public MemberDto login(String userid, String userpwd) throws Exception {
@@ -33,5 +22,22 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void join(MemberDto memberDto) throws Exception {
 		sqlSession.getMapper(MemberMapper.class).join(memberDto);
+	}
+
+	@Override
+	public void memberdelete(MemberDto member) {
+		sqlSession.getMapper(MemberMapper.class).memberdelete(member);
+		
+	}
+
+	@Override
+	public void memberupdate(MemberDto member) {
+		sqlSession.getMapper(MemberMapper.class).memberupdate(member.getUserid());
+		
+	}
+
+	@Override
+	public MemberDto memberdetail(String userid) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).memberdetail(userid);
 	}
 }

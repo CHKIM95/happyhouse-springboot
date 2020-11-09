@@ -1,11 +1,16 @@
 package com.ssafy.happyhouse.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,14 +28,34 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@RequestMapping(value="/userInfo", method = RequestMethod.GET)
+	private String memberdetail(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+		MemberDto member;
+		String path = "userInfo";
+		try {
+			member = memberService.memberdetail(request.getSession().getId());
+			model.addAttribute("member", member);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "유저 상세보기 처리 중 문제가 발생했습니다.");
+			path = "error/error";
+		}
+		return path;
+	}
+	
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
-	private void memberdelete(MemberDto member) {
-		
+	private String memberdelete(HttpServletRequest request, MemberDto member) {
+		memberService.memberdelete(member);
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "index";
 	}
 
 	@RequestMapping(value="/update", method = RequestMethod.POST)
-	private void memberupdate(MemberDto member) {
-		
+	private String memberupdate(HttpServletRequest request, MemberDto member) {
+		member.setEmail(request.getParameter("emailid") + "@" + request.getParameter("emaildomain"));
+		memberService.memberupdate(member);
+		return "redirect:/userInfo";
 	}
 	
 	/**

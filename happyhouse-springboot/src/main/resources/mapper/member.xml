@@ -13,5 +13,19 @@
 		INSERT INTO happyhouse_member (userid, username, userpwd, email, admin, joindate)
 		values(#{userid}, #{username}, #{userpwd}, #{email}, 0, now())
 	</insert>
+	<update id="memberupdate" parameterType="MemberDto">
+		update happyhouse_member
+		set username = #{username}, userpwd = #{userpwd}, email = #{email}
+		where userid = #{userid}
+	</update>
 	
+	<delete id="memberdelete" parameterType="String">
+		delete from happyhouse_member
+		where userid = #{userid}
+	</delete>
+	<select id="memberdetail" parameterType="String">
+		select *
+		from happyhouse_member
+		where userid = #{userid}
+	</select>
 </mapper>
